@@ -1,0 +1,93 @@
+'use strict';
+
+const sscanf = require('..');
+const should = require('should');
+
+describe('scanf', function() {
+  describe('#String', function() {
+
+    it('[%s] \t\tshould get a string 123', function(done) {
+      let str = sscanf('123', '%s');
+      should.strictEqual(str, '123');
+      done();
+    });
+
+    it('[%s] \t\tshould get a string 3.14', function(done) {
+      let str = sscanf('3.14 is pi', '%s');
+      should.strictEqual(str, '3.14');
+      done();
+    });
+
+    it('[%s] \t\tshould get a Barack', function(done) {
+      let str = sscanf('Barack Obama', '%s');
+      should.strictEqual(str, 'Barack');
+      done();
+    });
+
+    it('[%s] \t\tshould get a string Barack Obama', function(done) {
+      let str = sscanf('Barack\\ Obama', '%s');
+      should.strictEqual(str, 'Barack Obama');
+      done();
+    });
+
+    it('[%s] \t\tshould get a string Barack Hussein Obama', function(done) {
+      let str = sscanf('Barack\\ Hussein\\ Obama', '%s');
+      should.strictEqual(str, 'Barack Hussein Obama');
+      done();
+    });
+
+    it('[%S] \t\tshould get a line', function(done) {
+      let str = sscanf('hello this is a line~\nThis is the secned line', '%S');
+      should.strictEqual(str, 'hello this is a line~');
+      done();
+    });
+
+    it('[%s] \t\tshould get a string Barack Hussein Obama', function(done) {
+      let str = sscanf('Barack\\ Hussein\\ Obama is president of US', '%s');
+      should.strictEqual(str, 'Barack Hussein Obama');
+      done();
+    });
+
+    it('[%s] \t\tshould get a string 12abc', function(done) {
+      let str = sscanf(' 12abc', '%s');
+      should.strictEqual(str, '12abc');
+      done();
+    });
+
+    it('[hello %s!] \tshould get a string world', function(done) {
+      let str = sscanf('hello world!', 'hello %s!');
+      should.strictEqual(str, 'world');
+      done();
+    });
+
+    it('[hello %s, %s!] should get an array like ["world", "test"]', function(done) {
+      let str = sscanf('hello world, test!', 'hello %s, %s!');
+      should.deepEqual(str, ['world', 'test']);
+      done();
+    });
+
+    it('[%s%s] \t\tshould get an array like ["Alan", "6"]', function(done) {
+      let str = sscanf('Alan 6', '%s%s');
+      should.deepEqual(str, ['Alan', '6']);
+      done();
+    });
+
+    it('[%s, %s] \tshould get an array like ["Alan", "6"]', function(done) {
+      let str = sscanf('Alan, 6', '%s,%s');
+      should.deepEqual(str, ['Alan', '6']);
+      done();
+    });
+
+    it('[a=%s, b=%s] \tshould get an array like ["Alan", "6"]', function(done) {
+      let str = sscanf('a=Alan, b=6', 'a=%s, b=%s');
+      should.deepEqual(str, ['Alan', '6']);
+      done();
+    });
+
+    it('[%s %S] \tshould get an array like ["String", null]', function(done) {
+      let str = sscanf('/System/Library/CoreServices/powerd.bundle', '%s %S');
+      should.deepEqual(str, ['/System/Library/CoreServices/powerd.bundle', null]);
+      done();
+    });
+  });
+});
