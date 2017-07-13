@@ -3,17 +3,24 @@
   "version": "0.7.0",
   "description": "C like sscanf for Node.js.",
   "main": "lib/sscanf.js",
+  "engines": {
+    "node": ">=4.8.3"
+  },
   "directories": {
     "lib": "lib",
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha --reporter spec",
+    "coveralls": "istanbul cover node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | coveralls && rm -rf ./coverage"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Lellansin/node-sscanf.git"
   },
+  "keywords": [
+    "sscanf"
+  ],
   "author": "Lellansin",
   "license": "MIT",
   "bugs": {
@@ -21,6 +28,8 @@
   },
   "homepage": "https://github.com/Lellansin/node-sscanf#readme",
   "devDependencies": {
+    "coveralls": "^2.11.8",
+    "istanbul": "^0.4.2",
     "mocha": "^3.4.2",
     "should": "^11.2.1"
   }
