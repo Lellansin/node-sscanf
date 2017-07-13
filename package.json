@@ -1,6 +1,6 @@
 {
   "name": "sscanf",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "C like sscanf for Node.js.",
   "main": "lib/sscanf.js",
   "engines": {
