@@ -53,5 +53,11 @@ describe('scanf', function() {
       should.deepEqual(num, [8, 16]);
       done();
     });
+
+    it('[{a:%o, b:%o}] \tshould get an array with two numbers [8, 16]', function(done) {
+      let num = sscanf('{a:010, b:20}', '{a:%o, b:%o}');
+      should.deepEqual(num, [8, 16]);
+      done();
+    });
   });
 });

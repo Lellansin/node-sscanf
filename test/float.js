@@ -77,5 +77,11 @@ describe('scanf', function() {
       should.deepEqual(num, [ 1, 2, 3, 2.5, -3.6, 8 ]);
       done();
     });
+
+    it('[{a:%d, b:%f, c:%f}] \tshould get an array with two float [2.5, -3.6]', function(done) {
+      let num = sscanf('{a:111, b:2.5, c:3.3333}', '{a:%d, b:%f, c:%f}');
+      should.deepEqual(num, [ 111, 2.5, 3.3333 ]);
+      done();
+    });
   });
 });

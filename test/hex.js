@@ -53,5 +53,11 @@ describe('scanf', function() {
       should.deepEqual(num, [16, 32]);
       done();
     });
+
+    it('[{a:%x, b:%x}] \tshould get an array with two numbers [16, 32]', function(done) {
+      let num = sscanf('{a:0x10, b:20', '{a:%x, b:%x}');
+      should.deepEqual(num, [16, 32]);
+      done();
+    });
   });
 });

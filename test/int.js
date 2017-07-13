@@ -138,6 +138,24 @@ describe('scanf', function() {
       done();
     });
 
+    it("[a='%d'] should get null", function(done) {
+      let str = sscanf("a='123'", "a='%d'");
+      should.deepEqual(str, 123);
+      done();
+    });
+
+    it("[a='%d', b=%d] should get null", function(done) {
+      let str = sscanf("a='123', b=321", "a='%d', b=%d");
+      should.deepEqual(str, [123, 321]);
+      done();
+    });
+
+    it("[a='%d', b=%d] should get null", function(done) {
+      let str = sscanf("a='', b=321", "a='%d', b=%d");
+      should.deepEqual(str, [null, 321]);
+      done();
+    });
+
     it('[%d%d] \t\tshould get an array with two integers [5, 6]', function(done) {
       let num = sscanf('5,6', '%d%d');
       should.deepEqual(num, [5, 6]);
@@ -189,6 +207,12 @@ describe('scanf', function() {
     it('[a=%d, b=%d] \tshould get an array with two integer [-5, null]', function(done) {
       let num = sscanf('a=-5', 'a=%d, b=%d');
       should.deepEqual(num, [-5, null]);
+      done();
+    });
+
+    it('[{a:%d, b:%d}] \tshould get an array with two integer [-5, 12]', function(done) {
+      let num = sscanf('{a:-5, b:12}', 'a:%d, b:%d');
+      should.deepEqual(num, [-5, 12]);
       done();
     });
   });

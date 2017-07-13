@@ -89,5 +89,31 @@ describe('scanf', function() {
       should.deepEqual(str, ['/System/Library/CoreServices/powerd.bundle', null]);
       done();
     });
+
+    it("[a='%s'] should get a string '1234'", function(done) {
+      let str = sscanf("a='1234'", "a='%s'")
+      should.deepEqual(str, '1234');
+      done();
+    });
+
+    it("[a='%s'] should get null", function(done) {
+      let str = sscanf("a=''", "a='%s'")
+      should.deepEqual(str, null);
+      done();
+    });
+
+    it("[a='%s', b=%s] should get null", function(done) {
+      let str = sscanf("a='', b=1234", "a='%s', b=%s")
+      should.deepEqual(str, [null, '1234']);
+      done();
+    });
+
+    it("[id:%d, api_url:'%s', timestamp: %s] should get an array like [Number, String, String]", function(done) {
+      let chunk = "[{id:1049105, api_url:'hello', timestamp: 2017-07-12T00:34:36.000Z}," + 
+                    "{id:993221, api_url:'', timestamp: 2017-07-12T00:34:18.000Z}]";
+      let str = sscanf(chunk, "id:%d, api_url:'%s', timestamp: %s}")
+      should.deepEqual(str, [1049105, 'hello', '2017-07-12T00:34:36.000Z']);
+      done();
+    });
   });
 });
